@@ -7,7 +7,9 @@ if len(sys.argv) != 3 or sys.argv[2][-3:] is not ".vm":
 
 # Handle input file
 class Parser:
-
+    def __init__(self, filename):
+        self.file = filename
+        self.current_command = None
     # Type of command
     C_ARITHMETIC = 1
     C_PUSH = 2
@@ -20,25 +22,31 @@ class Parser:
     C_CALL = 9
     VM_code = ""
     # Open file to read
-    def Constructor(self, filename):
+    def Constructor(self):
         try:
-            with open(f"{filename}", "r") as file:
-                self.VM_code = file.read()
+            open(f"{self.file}", "r")
         except FileNotFoundError:
             sys.exit("Can not open file")
 
     # Check if whether has the command left
     def hasMoreCommand(self):
-        pass
+        if self.file.readline() = "":
+            return False
+        return True
     
     # Read the next command from the input and makes it the current command
     def advance(self):
-        pass
+        self.current_command = self.file.readline()
 
     # Return the type of the command
     def commandType(self):
+   
+
+    def arg1(self):
         pass
 
+    def arg2(self):
+        pass
 
 
 # Write into output file
