@@ -74,9 +74,15 @@ class CodeWriter:
     def writeArithmetic(self, string):
         self.file.write(f"{string[0]}")
         if string[0] == "add":
-            self.file.write(f"@0\nM=M-1\nA=M\nD=M\n@0\nM=M-1\nA=M\nM=D+M\n@0\nM=M+1\n")
-            
-
+            self.file.write("@0\nM=M-1\nA=M\nD=M\n@0\nM=M-1\nA=M\nM=D+M\n@0\nM=M+1\n")
+        if string[0] == "sub":
+            self.file.write("@0\nD=A\nM=M-1\nA=M\nM=D-M\nD=M\n@0\nM=M-1\nA=M\nM=D+M\n@0\nM=M+1\n")
+        if string[0] == "neg":
+            self.file.write("@0\nD=A\nM=M-1\nA=M\nM=D-M\n@0\nM=M+1\n")
+        if string[0] == "eq":
+            self.file.write("@0\nM=M-1\nA=M\nD=M\n@0\nM=M-1\nA=M\nM=D-M\n@false\nM;JNE\nM=M+1\n@increase\n0;JMP\n(false)\n@0\nD=A\nA=M\nM=D\n(increase)\n@0\nM=M+1\n")
+        if string[0] == "gt":
+            self.file.write("@0\nM=M-1\nA=M\nD=M\n@0\nM=M-1\nA=M\nM=D-M\n@gt\nM;JLT\n@0\nA=M\nM=")
     # Converting push & pop operation to assembly
     def writePushPop(self):
         pass
